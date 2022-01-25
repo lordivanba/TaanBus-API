@@ -8,5 +8,6 @@ namespace taanbus.Domain.Interfaces{
         Task<IEnumerable<Queja>> GetQuejas();
         Task<Queja> GetQuejaById(int id);
         Task<int> CreateQueja(Queja queja);
+        Task<bool> UpdateQueja(int id, Queja queja);
     }
 }

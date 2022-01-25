@@ -44,5 +44,21 @@ namespace taanbus.Infrastructure.Repositories{
                 throw new Exception("No se pudo registrar la sugerencia a falta de informacion");
             }
         }
+
+        public async Task<bool> UpdateQueja(int id, Queja queja){
+            if(id <= 0 || queja == null)
+                throw new ArgumentNullException("La actualizacion no se pudo realizar a falta de informacion");
+            var entity = await GetQuejaById(id);
+
+            entity.MotivoQueja = queja.MotivoQueja;
+            entity.FechaHechos = queja.FechaHechos;
+            entity.Descripcion = queja.Descripcion;
+
+            _context.Update(entity);
+
+            var rows = await _context.SaveChangesAsync();
+
+            return rows > 0;
+        }
     }
 }

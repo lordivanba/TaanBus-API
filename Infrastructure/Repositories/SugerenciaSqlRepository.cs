@@ -21,5 +21,47 @@ namespace taanbus.Infrastructure.Repositories{
             var query = _context.Sugerencia.Select(x => x);
             return await query.ToListAsync();
         }
+
+        public async Task<Sugerencia> GetSugerenciaById(int id){
+            var query = _context.Sugerencia.FindAsync(id);
+            return await query;
+        }
+
+        public async Task<int> CreateSugerencia(Sugerencia sugerencia){
+            if(sugerencia == null)
+                throw new ArgumentNullException("No se pudo registrar la sugerencia a falta de informacion");
+                
+            try{
+                sugerencia.FechaRegistro = DateTime.Now;
+                var entity = sugerencia;
+                await _context.AddAsync(entity);
+                var rows = await _context.SaveChangesAsync();
+
+                if(rows <= 0)
+                    throw new Exception("Ocurrio un fallo al intentar registrar la sugerencia, verifica la informacion ingresada");
+                return entity.Id;
+
+            } catch(DbUpdateException exEf){
+                throw new Exception("No se pudo registrar la sugerencia a falta de informacion");
+            }
+        }
+
+        public async Task<bool> UpdateSugerencia(int id, Sugerencia sugerencia){
+            if(id<= 0 || sugerencia == null)
+                throw new ArgumentNullException("La actualizacion no se pudo realizar a falta de informacion");
+            var entity = await GetSugerenciaById(id);
+
+            entity.NombreCiudadano = sugerencia.NombreCiudadano;
+            entity.ApellidosCiudadano = sugerencia.ApellidosCiudadano;
+            entity.CorreoCiudadano = sugerencia.CorreoCiudadano;
+            entity.TelefonoCiudadano = sugerencia.TelefonoCiudadano;
+            entity.Descripcion = sugerencia.Descripcion;
+
+            _context.Update(entity);
+
+            var rows = await _context.SaveChangesAsync();
+
+            return rows > 0;
+        }
     }
 }

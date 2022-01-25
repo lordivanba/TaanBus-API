@@ -58,3 +58,7 @@ C:\Users\viern\source\repos\taanbus\taanbus\bin\Debug\netcoreapp3.1\runtimes\uni
 C:\Users\viern\source\repos\taanbus\taanbus\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\viern\source\repos\taanbus\taanbus\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\viern\source\repos\taanbus\taanbus\obj\Debug\netcoreapp3.1\taanbus.csproj.CopyComplete
+C:\Users\viern\source\repos\taanbus\taanbus\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Users\viern\source\repos\taanbus\taanbus\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\viern\source\repos\taanbus\taanbus\bin\Debug\netcoreapp3.1\FluentValidation.dll
+C:\Users\viern\source\repos\taanbus\taanbus\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
