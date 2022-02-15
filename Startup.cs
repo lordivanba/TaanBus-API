@@ -30,6 +30,16 @@ namespace taanbus
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                builder =>
+                                {
+                                    builder.WithOrigins("*");
+                                });
+            });
+            services.AddCors();
             services.AddControllers();
 
             //Database connection
@@ -54,6 +64,7 @@ namespace taanbus
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors("MyAllowSpecificOrigins");
 
             app.UseHttpsRedirection();
 
