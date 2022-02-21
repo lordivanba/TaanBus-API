@@ -92,5 +92,18 @@ namespace taanbus.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete]
+        [Route("{id::int}")]
+        public async Task<IActionResult> DeleteQueja([FromRoute] int id){
+            if(id <= 0)
+                return NotFound("No se ha encontrado una queja que corresponda con el ID proporcionado");
+            try{
+                await _repository.DeleteQueja(id);
+                return NoContent();
+            } catch (Exception e){
+                return BadRequest();
+            }
+        }
     }
 }

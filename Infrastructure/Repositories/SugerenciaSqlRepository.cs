@@ -63,5 +63,21 @@ namespace taanbus.Infrastructure.Repositories{
 
             return rows > 0;
         }
+
+        public async Task<bool> DeleteSugerencia(int id)
+        {
+            if (id <= 0)
+                throw new ArgumentNullException("No se pudo eliminar la sugerencia");
+            var sugerencia = await GetSugerenciaById(id);
+            try{
+                _context.Remove(sugerencia);
+                await _context.SaveChangesAsync();               
+                
+                return true;
+            } catch (Exception e){
+                throw new Exception("No se pudo eliminar la sugerencia");
+            }
+
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace taanbus.Domain.Interfaces{
         Task<Sugerencia> GetSugerenciaById(int id);
         Task<int> CreateSugerencia(Sugerencia sugerencia);
         Task<bool> UpdateSugerencia(int id, Sugerencia sugerencia);
+        Task<bool> DeleteSugerencia(int id);
         
         
     }

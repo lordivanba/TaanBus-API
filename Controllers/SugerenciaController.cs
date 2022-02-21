@@ -88,5 +88,18 @@ namespace taanbus.Controllers
 
             return NoContent();
         }
+        
+        [HttpDelete]
+        [Route("{id::int}")]
+        public async Task<IActionResult> DeleteSugerencia([FromRoute] int id){
+            if(id <= 0)
+                return NotFound("No se ha encontrado una sugerencia que corresponda con el ID proporcionado");
+            try{
+                await _repository.DeleteSugerencia(id);
+                return NoContent();
+            } catch (Exception e){
+                return BadRequest();
+            }
+        }
     }
 }

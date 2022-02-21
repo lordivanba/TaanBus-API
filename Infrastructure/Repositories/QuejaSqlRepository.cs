@@ -7,7 +7,8 @@ using taanbus.domain.entities;
 using taanbus.Domain.Interfaces;
 using taanbus.Infrastructure.Data;
 
-namespace taanbus.Infrastructure.Repositories{
+namespace taanbus.Infrastructure.Repositories
+{
     public class QuejaSqlRepository : IQuejaSqlRepository
     {
         private readonly taanbusdbContext _context;
@@ -16,37 +17,43 @@ namespace taanbus.Infrastructure.Repositories{
         {
             _context = new taanbusdbContext();
         }
-        public async Task<IEnumerable<Queja>> GetQuejas(){
+        public async Task<IEnumerable<Queja>> GetQuejas()
+        {
             var query = _context.Queja.Select(x => x);
             return await query.ToListAsync();
         }
 
-        public async Task<Queja> GetQuejaById(int id){
+        public async Task<Queja> GetQuejaById(int id)
+        {
             var query = _context.Queja.FindAsync(id);
             return await query;
         }
 
-        public async Task<int> CreateQueja(Queja queja){
-            if(queja == null)
+        public async Task<int> CreateQueja(Queja queja)
+        {
+            if (queja == null)
                 throw new ArgumentNullException("No se pudo registrar la queja a falta de informacion");
-            try{
+            try
+            {
                 queja.FechaRegistro = DateTime.Now;
                 var entity = queja;
                 await _context.AddAsync(entity);
                 var rows = await _context.SaveChangesAsync();
 
-                if(rows <= 0)
+                if (rows <= 0)
                     throw new Exception("Ocurrio un fallo al intentar registrar la queja, verifica tu informacion");
 
                 return entity.Id;
             }
-            catch(DbUpdateException exEf){
+            catch (DbUpdateException exEf)
+            {
                 throw new Exception("No se pudo registrar la sugerencia a falta de informacion");
             }
         }
 
-        public async Task<bool> UpdateQueja(int id, Queja queja){
-            if(id <= 0 || queja == null)
+        public async Task<bool> UpdateQueja(int id, Queja queja)
+        {
+            if (id <= 0 || queja == null)
                 throw new ArgumentNullException("La actualizacion no se pudo realizar a falta de informacion");
             var entity = await GetQuejaById(id);
 
@@ -59,6 +66,22 @@ namespace taanbus.Infrastructure.Repositories{
             var rows = await _context.SaveChangesAsync();
 
             return rows > 0;
+        }
+
+        public async Task<bool> DeleteQueja(int id)
+        {
+            if (id <= 0)
+                throw new ArgumentNullException("No se pudo eliminar la queja");
+            var queja = await GetQuejaById(id);
+            try{
+                _context.Remove(queja);
+                await _context.SaveChangesAsync();               
+                
+                return true;
+            } catch (Exception e){
+                throw new Exception("No se pudo eliminar el registro");
+            }
+
         }
     }
 }
