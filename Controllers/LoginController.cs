@@ -35,12 +35,14 @@ namespace taanbus.Controllers
 
             bool credentials = usuario.Password.Equals(user.Password);
             if(!credentials){
-                tokenClass.TokenOrMessage = "Password incorrecto";
+                tokenClass.TokenOrMessage = "Contraseña incorrecta";
                 return Ok(tokenClass);
             }
 
             tokenClass.TokenOrMessage =  TokenManager.GenerateToken(user.Username);
             tokenClass.Success = 1;
+            tokenClass.UserId = user.Id;
+            tokenClass.UserType = user.Usertype;
             return Ok(tokenClass);
         }
 

@@ -22,7 +22,7 @@ namespace taanbus.Domain.Entities
         public string Telefono { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public int? Usertype { get; set; } = 0;
+        public int Usertype { get; set; } = 0;
 
         public virtual ICollection<Queja> Queja { get; set; }
         public virtual ICollection<Sugerencia> Sugerencia { get; set; }
