@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using taanbus.domain.entities;
+using taanbus.Domain.Entities;
 using taanbus.Domain.Interfaces;
 using taanbus.Infrastructure.Data;
 
@@ -29,6 +29,21 @@ namespace taanbus.Infrastructure.Repositories
             return await query;
         }
 
+        public async Task<IEnumerable<Queja>> GetUserQuejas(int id)
+        {
+            var query = _context.Queja.Where(x => x.UserId == id);
+            return await query.ToListAsync();
+        }
+
+        public async Task<bool> UpdateStatus(int id,int status)
+        {
+            var entity = await GetQuejaById(id);
+
+            entity.Status = status;
+            var rows = await _context.SaveChangesAsync();
+
+            return rows > 0;
+        }
         public async Task<int> CreateQueja(Queja queja)
         {
             if (queja == null)

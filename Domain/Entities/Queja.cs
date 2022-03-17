@@ -5,7 +5,7 @@ using System.Collections.Generic;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace taanbus.domain.entities
+namespace taanbus.Domain.Entities
 {
     public partial class Queja
     {
@@ -14,5 +14,9 @@ namespace taanbus.domain.entities
         public DateTime? FechaHechos { get; set; }
         public string Descripcion { get; set; }
         public DateTime? FechaRegistro { get; set; }
+        public int? Status { get; set; } = 0;
+        public int? UserId { get; set; }
+
+        public virtual Usuario User { get; set; }
     }
 }

@@ -5,16 +5,16 @@ using System.Collections.Generic;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace taanbus.domain.entities
+namespace taanbus.Domain.Entities
 {
     public partial class Sugerencia
     {
         public int Id { get; set; }
-        public string NombreCiudadano { get; set; }
-        public string ApellidosCiudadano { get; set; }
-        public string CorreoCiudadano { get; set; }
-        public string TelefonoCiudadano { get; set; }
         public string Descripcion { get; set; }
         public DateTime? FechaRegistro { get; set; }
+        public int? Status { get; set; } = 0;
+        public int? UserId { get; set; }
+
+        public virtual Usuario User { get; set; }
     }
 }

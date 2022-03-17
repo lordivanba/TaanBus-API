@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using taanbus.domain.entities;
+using taanbus.Domain.Entities;
 using taanbus.Domain.Interfaces;
 using taanbus.Infrastructure.Data;
 
@@ -25,6 +25,22 @@ namespace taanbus.Infrastructure.Repositories{
         public async Task<Sugerencia> GetSugerenciaById(int id){
             var query = _context.Sugerencia.FindAsync(id);
             return await query;
+        }
+
+        public async Task<IEnumerable<Sugerencia>> GetUserSugerencias(int id)
+        {
+            var query = _context.Sugerencia.Where(x => x.UserId == id);
+            return await query.ToListAsync();
+        }
+
+           public async Task<bool> UpdateStatus(int id,int status)
+        {
+            var entity = await GetSugerenciaById(id);
+
+            entity.Status = status;
+                        var rows = await _context.SaveChangesAsync();
+
+            return rows > 0;
         }
 
         public async Task<int> CreateSugerencia(Sugerencia sugerencia){
@@ -51,10 +67,6 @@ namespace taanbus.Infrastructure.Repositories{
                 throw new ArgumentNullException("La actualizacion no se pudo realizar a falta de informacion");
             var entity = await GetSugerenciaById(id);
 
-            entity.NombreCiudadano = sugerencia.NombreCiudadano;
-            entity.ApellidosCiudadano = sugerencia.ApellidosCiudadano;
-            entity.CorreoCiudadano = sugerencia.CorreoCiudadano;
-            entity.TelefonoCiudadano = sugerencia.TelefonoCiudadano;
             entity.Descripcion = sugerencia.Descripcion;
 
             _context.Update(entity);

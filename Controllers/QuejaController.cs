@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using taanbus.domain.dtos.requests;
 using taanbus.domain.dtos.responses;
-using taanbus.domain.entities;
+using taanbus.Domain.Dtos.Requests;
+using taanbus.Domain.Entities;
 using taanbus.Domain.Interfaces;
 
 namespace taanbus.Controllers
@@ -47,6 +48,37 @@ namespace taanbus.Controllers
             var response = _mapper.Map<Queja, QuejaResponse>(queja);
 
             return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("user={id::int}")]
+        public async Task<IActionResult> GetUserQuejas(int id)
+        {
+            var quejas = await _repository.GetUserQuejas(id);
+            return Ok(quejas);
+        }
+
+        [HttpPut]
+        [Route("update_status/{id::int}")]
+        public async Task<IActionResult> UpdateQuejaStatus(int id, [FromBody] QuejaStatusUpdateRequest queja)
+        {
+
+            if (id <= 0)
+                return NotFound("No se encontro un registro que coincida con la informacion proporcionada");
+
+            try
+            {
+                var result = await _repository.UpdateStatus(id, queja.Status)
+                ;
+                if (!result)
+                    return Conflict("No fue posible realizar la actualizacion, verifica tu informacion");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+
+            return NoContent();
         }
 
         [HttpPost]

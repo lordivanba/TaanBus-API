@@ -49,8 +49,12 @@ namespace taanbus
             //Interfaces
             services.AddTransient<ISugerenciaSqlRepository, SugerenciaSqlRepository>();
             services.AddTransient<IQuejaSqlRepository, QuejaSqlRepository>();
+             services.AddTransient<IUsuarioSqlRepository, UsuarioSqlRepository>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            //Login
+            services.AddScoped<System.Net.Http.HttpClient>();
 
             //Automapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -75,6 +79,8 @@ namespace taanbus
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                // endpoints.MapBlazorHub();
+                // endpoints.MapFallbackToPage("/_Host");
             });
         }
     }

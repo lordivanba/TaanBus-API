@@ -1,9 +1,10 @@
 using AutoMapper;
 using taanbus.domain.dtos.requests;
 using taanbus.domain.dtos.responses;
-using taanbus.domain.entities;
+using taanbus.Domain.Entities;
 
-namespace taanbus.Application.Mappings{
+namespace taanbus.Application.Mappings
+{
     public class AutoMapperProfile : Profile{
         public AutoMapperProfile(){
             //Quejas
