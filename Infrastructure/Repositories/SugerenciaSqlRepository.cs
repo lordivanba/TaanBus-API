@@ -18,12 +18,13 @@ namespace taanbus.Infrastructure.Repositories{
         }
 
         public async Task<IEnumerable<Sugerencia>> GetSugerencias(){
-            var query = _context.Sugerencia.Select(x => x);
+            var query = _context.Sugerencia.Select(x => x).Include(x => x.User);
             return await query.ToListAsync();
         }
 
         public async Task<Sugerencia> GetSugerenciaById(int id){
-            var query = _context.Sugerencia.FindAsync(id);
+            // var query = _context.Sugerencia.FindAsync(id);
+            var query = _context.Sugerencia.Include(x => x.User).FirstOrDefaultAsync(x => x.Id == id);
             return await query;
         }
 

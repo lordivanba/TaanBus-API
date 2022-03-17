@@ -9,5 +9,6 @@ namespace taanbus.domain.dtos.responses
         public DateTime? FechaRegistro { get; set; }
         public int? Status { get; set; } = 0;
         public int? UserId { get; set; }
+        public string Ciudadano { get; set; }
     }
 }

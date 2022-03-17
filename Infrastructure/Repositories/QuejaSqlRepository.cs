@@ -19,13 +19,14 @@ namespace taanbus.Infrastructure.Repositories
         }
         public async Task<IEnumerable<Queja>> GetQuejas()
         {
-            var query = _context.Queja.Select(x => x);
+            var query = _context.Queja.Select(x => x).Include(x => x.User);
             return await query.ToListAsync();
         }
 
         public async Task<Queja> GetQuejaById(int id)
         {
-            var query = _context.Queja.FindAsync(id);
+            // var query = _context.Queja.FindAsync(id);
+            var query = _context.Queja.Include(x => x.User).FirstOrDefaultAsync(x => x.Id == id);
             return await query;
         }
 

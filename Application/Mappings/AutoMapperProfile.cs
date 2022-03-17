@@ -8,12 +8,14 @@ namespace taanbus.Application.Mappings
     public class AutoMapperProfile : Profile{
         public AutoMapperProfile(){
             //Quejas
-            CreateMap<Queja, QuejaResponse>();
+            CreateMap<Queja, QuejaResponse>()
+                .ForMember(dest => dest.Ciudadano, opt => opt.MapFrom(src => $"{src.User.Nombre} {src.User.Apellidos}"));
             CreateMap<QuejaCreateRequest, Queja>();
             CreateMap<QuejaUpdateRequest, Queja>();
 
             //Sugerencias
-            CreateMap<Sugerencia, SugerenciaResponse>();
+            CreateMap<Sugerencia, SugerenciaResponse>()
+                .ForMember(dest => dest.Ciudadano, opt => opt.MapFrom(src => $"{src.User.Nombre} {src.User.Apellidos}"));
             CreateMap<SugerenciaCreateRequest, Sugerencia>();
             CreateMap<SugerenciaUpdateRequest, Sugerencia>();
         }
