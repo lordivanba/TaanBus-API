@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace taanbus.Domain.Dtos.Requests
+namespace taanbus.domain.dtos.requests
 {
     public class SugerenciaStatusUpdateRequest
     {

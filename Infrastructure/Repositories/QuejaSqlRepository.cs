@@ -36,6 +36,12 @@ namespace taanbus.Infrastructure.Repositories
             return await query.ToListAsync();
         }
 
+        public async Task<IEnumerable<Queja>> GetQuejasAprobadas()
+        {
+            var query = _context.Queja.Select(x => x).Where(x => x.Status == 1);
+            return await query.ToListAsync();
+        }
+
         public async Task<bool> UpdateStatus(int id,int status)
         {
             var entity = await GetQuejaById(id);

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using taanbus.domain.dtos.requests;
 using taanbus.domain.dtos.responses;
-using taanbus.Domain.Dtos.Requests;
+using taanbus.Domain.Dtos.Responses;
 using taanbus.Domain.Entities;
 using taanbus.Domain.Interfaces;
 
@@ -56,6 +56,15 @@ namespace taanbus.Controllers
         {
             var quejas = await _repository.GetUserQuejas(id);
             return Ok(quejas);
+        }
+
+        [HttpGet]
+        [Route("aprobadas")]
+        public async Task<IActionResult> GetQuejasAprobadas()
+        {
+            var quejas = await _repository.GetQuejasAprobadas();
+            var response = _mapper.Map<IEnumerable<Queja>, IEnumerable<QuejaAprobadaResponse>>(quejas);
+            return Ok(response);
         }
 
         [HttpPut]

@@ -1,5 +1,5 @@
 
-namespace taanbus.domain.dtos.responses
+namespace taanbus.domain.dtos.requests
 {
     public class SugerenciaUpdateRequest
     {
